@@ -1,8 +1,16 @@
 module.exports = {
-  extends: ['react-app', 'plugin:prettier/recommended'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react', '@typescript-eslint'],
+  extends: [ 
+  'react-app',
+  'plugin:react/recommended',
+  'plugin:prettier/recommended',
+  'prettier/@typescript-eslint', 
+  'plugin:@typescript-eslint/recommended'],
   rules: {
-    'react/react-in-jsx-scope': 'none',
-    'jsx-a11y/anchor-is-valid': 'none',
+    '@typescript-eslint/indent': ["error", 2],
+    'react/react-in-jsx-scope': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
     'no-empty': 'error',
     'no-extra-semi': 'error',
     'no-irregular-whitespace': 'error',
@@ -11,4 +19,10 @@ module.exports = {
     'no-empty-function': 'error',
     'no-multi-spaces': 'error',
   },
+  settings: {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  }
 };

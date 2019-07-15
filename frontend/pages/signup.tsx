@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Signup from '../components/Signup';
 import Signin from '../components/Signin';
-import Request_Reset from '../components/RequestReset';
+import RequestReset from '../components/RequestReset';
 
 const Columns = styled.div`
   display: grid;
@@ -9,11 +9,11 @@ const Columns = styled.div`
   grid-gap: 20px;
 `;
 
-const SignupPage = props => (
+const SignupPage = (props): JSX.Element => (
   <Columns>
     <Signup />
     <Signin />
-    <Request_Reset />
+    <RequestReset />
   </Columns>
 );
 
