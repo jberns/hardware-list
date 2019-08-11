@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import Form from './styles/Form';
 import Error from './ErrorMessage';
+import styled from 'styled-components';
+
+import { Alert, Pane, Button, Heading, TextInputField } from 'evergreen-ui';
+
+const FieldSet = styled.fieldset`
+  border: none;
+`;
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -26,7 +32,7 @@ class Signin extends Component {
       <Mutation mutation={REQUEST_RESET_MUTATION} variables={this.state}>
         {(reset, { error, loading, called }) => {
           return (
-            <Form
+            <form
               method="post"
               onSubmit={async e => {
                 e.preventDefault();
@@ -34,26 +40,33 @@ class Signin extends Component {
                 this.setState({ email: '' });
               }}
             >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Request a password reset</h2>
-                <Error error={error} />
-                {!error && !loading && called && (
-                  <p>Success! Check your email for a reset link!</p>
-                )}
-                <label htmlFor="email">
-                  Email
-                  <input
+              <Pane border="default">
+                <FieldSet disabled={loading} aria-busy={loading}>
+                  <Heading size={600} marginTop={10} marginBottom={10}>
+                    Request a password reset
+                  </Heading>
+                  <Error error={error} />
+                  {!error && !loading && called && (
+                    <Alert
+                      intent="success"
+                      title="Success! Check your email for a reset link!"
+                      marginBottom={10}
+                    />
+                  )}
+                  <TextInputField
+                    label="Email"
                     type="email"
                     name="email"
                     placeholder="email"
                     value={this.state.email}
                     onChange={this.saveToState}
                   />
-                </label>
-
-                <button type="submit">Request Reset</button>
-              </fieldset>
-            </Form>
+                  <Button appearance="primary" type="submit">
+                    Request Reset
+                  </Button>
+                </FieldSet>
+              </Pane>
+            </form>
           );
         }}
       </Mutation>
